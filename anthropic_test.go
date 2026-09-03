@@ -99,7 +99,10 @@ func TestAnthropicRequestFieldConstraints(t *testing.T) {
 			{"name":"mcp__calculator__add_numbers","description":"Add numbers","input_schema":{"type":"object"}},
 			{"name":"Read","description":"Read a file","input_schema":{"type":"object"}}
 		],
-		"messages":[{"role":"user","content":[{"type":"text","text":"add 3 and 5"}]}]
+		"messages":[
+			{"role":"user","content":[{"type":"text","text":"add 3 and 5"}]},
+			{"role":"system","content":[{"type":"text","text":"runtime reminder"}]}
+		]
 	}`), &actual); err != nil {
 		t.Fatal(err)
 	}

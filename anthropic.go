@@ -127,8 +127,8 @@ func (p *AnthropicProvider) findMatchingMock(request anthropic.MessageNewParams,
 // requestsMatch checks if two requests are equivalent.
 //
 // Note: For MatchTypeContains, this function only supports a single content part
-// in the expected message. Text blocks match by substring; tool_result blocks match
-// only by tool_use_id.
+// in the expected message. It checks the latest message with the expected role;
+// text blocks match by substring and tool_result blocks only by tool_use_id.
 func (p *AnthropicProvider) requestsMatch(expected AnthropicRequestMatch, actual anthropic.MessageNewParams) bool {
 	if !anthropicRequestFieldsMatch(expected, actual) {
 		return false
@@ -163,14 +163,20 @@ func (p *AnthropicProvider) requestsMatch(expected AnthropicRequestMatch, actual
 			return false
 		}
 
-		lastMessage := actual.Messages[len(actual.Messages)-1]
-		if lastMessage.Role != expected.Message.Role {
+		var latestMessage *anthropic.MessageParam
+		for index := len(actual.Messages) - 1; index >= 0; index-- {
+			if actual.Messages[index].Role == expected.Message.Role {
+				latestMessage = &actual.Messages[index]
+				break
+			}
+		}
+		if latestMessage == nil {
 			return false
 		}
 
 		expectedPart := expected.Message.Content[0]
 		if expectedPart.OfText != nil {
-			for _, part := range lastMessage.Content {
+			for _, part := range latestMessage.Content {
 				if part.OfText != nil && strings.Contains(part.OfText.Text, expectedPart.OfText.Text) {
 					return true
 				}
@@ -178,7 +184,7 @@ func (p *AnthropicProvider) requestsMatch(expected AnthropicRequestMatch, actual
 		}
 
 		if expectedPart.OfToolResult != nil {
-			for _, part := range lastMessage.Content {
+			for _, part := range latestMessage.Content {
 				if part.OfToolResult != nil &&
 					part.OfToolResult.ToolUseID == expectedPart.OfToolResult.ToolUseID {
 					return true

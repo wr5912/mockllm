@@ -71,7 +71,7 @@ Current implementation uses these core types:
 - **Headers**: `anthropic-version` required
 - **Request**: `anthropic.MessageNewParams`
 - **Response**: `anthropic.Message`
-- **Matching**: Exact or contains on last message, with optional request-level system-text and tool-name constraints
+- **Matching**: Exact on the last message, or contains on the latest message with the configured role; optional request-level system-text and tool-name constraints
 
 ## Running as an Executable
 
@@ -435,7 +435,7 @@ Simple linear search through mocks:
 1. Parse incoming request into appropriate SDK type
 2. Iterate through provider-specific mocks in order
 3. For each mock, check if the match criteria are met:
-   - **Body**: Exact JSON comparison or string contains check on last message/input
+   - **Body**: Exact JSON comparison, or provider-specific contains matching on message/input
    - **Headers** (optional): All specified header rules must match
 4. Return the response from the first matching mock
 5. Return 404 if no match found
@@ -481,7 +481,7 @@ client := openai.NewClient(
 
 ## Limitations
 
-- Simple matching only (exact/contains on last message/input and optional headers)
+- Simple matching only (exact/contains on message/input and optional headers)
 - **Does not mock hosted tools (e.g. OpenAI file search, code execution) calls, reasoning, and MCP calls**
 - No stateful conversation tracking
 - No latency simulation

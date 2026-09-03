@@ -1,69 +1,8 @@
 {
   "listen_addr": "0.0.0.0:50050",
-  "openai": [
-    {
-      "name": "hello",
-      "match": {
-        "match_type": "contains",
-        "message": {
-          "role": "user",
-          "content": "Hello"
-        }
-      },
-      "response": {
-        "id": "chatcmpl-123",
-        "object": "chat.completion",
-        "created": 1677652288,
-        "model": "gpt-4o-mini",
-        "choices": [
-          {
-            "index": 0,
-            "message": {
-              "role": "assistant",
-              "content": "Hello! How can I help you today?"
-            },
-            "finish_reason": "stop"
-          }
-        ]
-      }
-    }
-  ],
-  "openai_response": [
-    {
-      "name": "haiku-response",
-      "match": {
-        "match_type": "contains",
-        "input": "Write me a haiku about Kagent"
-      },
-      "response": {
-        "id": "resp_123",
-        "object": "response",
-        "created_at": 1677652288,
-        "model": "gpt-4",
-        "status": "completed",
-        "output": [
-          {
-            "id": "msg_123",
-            "type": "message",
-            "status": "completed",
-            "role": "assistant",
-            "content": [
-              {
-                "type": "output_text",
-                "text": "Agents wake and run,\nKubernetes hums below,\nKagent finds its mind.",
-                "annotations": []
-              }
-            ]
-          }
-        ],
-        "parallel_tool_calls": false,
-        "tools": []
-      }
-    }
-  ],
   "anthropic": [
     {
-      "name": "claude-agent-sdk-haiku",
+      "name": "agentgov-682127f3-a608-44ae-991f-51c83f770bd7-01",
       "match": {
         "match_type": "contains",
         "message": {
@@ -71,27 +10,903 @@
           "content": [
             {
               "type": "text",
-              "text": "Write me a haiku about Kagent"
+              "text": "排查“172.16.1.165”无法访问版本服务业务172.16.2.100服务器"
+            }
+          ]
+        },
+        "tool_names": [
+          "Agent"
+        ]
+      },
+      "response": {
+        "id": "msg_202609031558182ceb2e0e166243ae",
+        "type": "message",
+        "role": "assistant",
+        "content": [
+          {
+            "type": "tool_use",
+            "id": "call_facc6876744a459e81450a12",
+            "name": "Agent",
+            "input": {
+              "description": "委派故障分析子智能体",
+              "prompt": "当前用户输入原文：排查“172.16.1.165”无法访问版本服务业务172.16.2.100服务器\n上下文输入：无\n请执行故障分析流程，最终正文只输出一次。",
+              "subagent_type": "network-security-fault-analysis-expert",
+              "run_in_background": false
+            }
+          }
+        ],
+        "model": "glm-5.3",
+        "stop_reason": "tool_use",
+        "stop_sequence": null,
+        "usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        }
+      }
+    },
+    {
+      "name": "agentgov-682127f3-a608-44ae-991f-51c83f770bd7-02",
+      "match": {
+        "match_type": "contains",
+        "message": {
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "当前用户输入原文：排查“172.16.1.165”无法访问版本服务业务172.16.2.100服务器\n上下文输入：无\n请执行故障分析流程，最终正文只输出一次。"
+            }
+          ]
+        },
+        "tool_names": [
+          "mcp__fault-analysis__fault_analysis_start"
+        ]
+      },
+      "response": {
+        "id": "msg_202609031558289ab3cae646a843fd",
+        "type": "message",
+        "role": "assistant",
+        "content": [
+          {
+            "type": "tool_use",
+            "id": "call_0f6ac4852332450f919dde70",
+            "name": "mcp__fault-analysis__fault_analysis_start",
+            "input": {
+              "body": {
+                "original_question": "排查“172.16.1.165”无法访问版本服务业务172.16.2.100服务器",
+                "planning_intent": {
+                  "analysis_direction_ids": [
+                    "base-reachability"
+                  ],
+                  "domain_id": "business-access-abnormal",
+                  "objects": [
+                    {
+                      "ip": "172.16.1.165",
+                      "role": "source"
+                    },
+                    {
+                      "description": "版本服务业务服务器",
+                      "ip": "172.16.2.100",
+                      "role": "destination"
+                    }
+                  ],
+                  "symptoms": [
+                    "无法访问",
+                    "业务访问失败"
+                  ]
+                },
+                "source_ip": "172.16.1.165",
+                "target_ip": "172.16.2.100"
+              }
+            }
+          }
+        ],
+        "model": "glm-5.3",
+        "stop_reason": "tool_use",
+        "stop_sequence": null,
+        "usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        }
+      }
+    },
+    {
+      "name": "agentgov-682127f3-a608-44ae-991f-51c83f770bd7-03",
+      "match": {
+        "match_type": "contains",
+        "message": {
+          "role": "user",
+          "content": [
+            {
+              "type": "tool_result",
+              "tool_use_id": "call_0f6ac4852332450f919dde70",
+              "content": "{\"status\":\"prepared\",\"run_id\":\"RUN-20260903-155841-37eae6\",\"run_dir\":\"runs/RUN-20260903-155841-37eae6\",\"init_result\":{\"status\":\"initialized\",\"run_id\":\"RUN-20260903-155841-37eae6\",\"run_dir\":\"runs/RUN-20260903-155841-37eae6\",\"request_id\":\"REQ-20260903-155841-37eae6\",\"task_id\":\"TASK-20260903-155841-37eae6\",\"created_artifacts\":[\"00-task-package.json\",\"run-manifest.json\"],\"input_summary\":{\"missing_fields\":[\"具体端口和协议\",\"故障起始时间\",\"源资产名称或业务系统\",\"目的资产名称或业务系统\",\"具体错误表现\"],\"default_assumptions\":[\"优先按业务访问异常处理。\",\"未提供端口时，先做源目对象、路径、策略、事件和资产状态类取证。\",\"未提供时间窗口时，默认近 24 小时只用于事件和变更线索查询，不代表故障真实发生时间。\"],\"default_assumption_boundary\":{\"allowed_uses\":[\"流程启动\",\"查询范围约束\",\"证据缺口记录\"],\"forbidden_uses\":[\"事实证据\",\"规则命中依据\",\"根因结论依据\",\"置信度加分依据\"],\"field_boundaries\":[\"时间窗口默认值只用于事件、日志和变更线索查询，不代表故障真实发生时间。\",\"端口或协议缺失时，不得默认具体端口、协议或服务监听状态。\",\"资产名称缺失时，不得编造资产名称、业务系统归属或服务角色。\",\"错误表现缺失时，只能记录为具体错误表现未知，不得默认超时、拒绝、丢包或 DNS 失败。\",\"缺失字段影响端口级策略、服务状态、时间一致性或错误类型判断时，必须进入证据缺口、置信度限制或人工补充项。\"]},\"time_window\":{\"source\":\"default\",\"start\":\"2026-09-02T15:58:41.620346+08:00\",\"end\":\"2026-09-03T15:58:41.620346+08:00\",\"description\":\"用户未提供明确故障时间时，默认使用近 24 小时作为事件和变更线索查询窗口。\"},\"input_context_policy\":{\"source\":\"current_request_context\",\"problem_context_may_be_present\":true,\"allowed_uses\":[\"分诊\",\"目标对象识别\",\"取证方向选择\",\"问题上下文解析说明\"],\"forbidden_uses\":[\"替代 SOC 正式取证事实\",\"直接确认最终根因\",\"执行响应处置\",\"调用上游服务重查或修改原始结果\"]}}},\"prepare_result\":{\"status\":\"prepared\",\"run_dir\":\"runs/RUN-20260903-155841-37eae6\",\"steps\":[{\"step\":\"triage\",\"status\":\"已生成\",\"triage_action\":\"进入正式故障分析流程\",\"fault_domain\":\"业务访问异常\",\"confidence\":0.97},{\"step\":\"checklist\",\"status\":\"已生成\",\"fault_domain\":\"业务访问异常\",\"analysis_direction_id\":\"基础源目访问失败\",\"requirement_count\":5},{\"step\":\"plan\",\"status\":\"planned_with_gaps\",\"tool_call_count\":11,\"cut_query_count\":1}],\"next_required_action\":\"按 04-tool-call-plan.json 执行 SOC 只读取证；所有 SOC 工具结果通过 取证工具 批量提交，即使只有一项结果也使用 tool_results 数组；不需要提交 result_summary，运行时会基于原始 content 生成摘要；全部提交后调用 取证工具 完成归一化、规则、置信度、入库、清理和回复生成。\"},\"tool_call_plan\":{\"schema_version\":\"draft-0.2\",\"plan_shape\":\"execution_slim\",\"status\":\"planned_with_gaps\",\"plan_id\":\"TOOL-PLAN-RUN-20260903-155841-37eae6\",\"task_id\":\"TASK-20260903-155841-37eae6\",\"run_id\":\"RUN-20260903-155841-37eae6\",\"fault_domain\":\"业务访问异常\",\"analysis_profile_id\":\"基础源目访问失败\",\"execution_mode\":\"runtime_expanded_parallel_with_dependencies\",\"max_concurrency\":3,\"planning_source\":\"runtime_expanded_from_planning_intent\",\"plan_validation\":{\"status\":\"planned_with_gaps\",\"issues\":[{\"severity\":\"warning\",\"code\":\"capability_query_binding_missing\",\"message\":\"business_access_related_event_window_search 当前没有可执行查询绑定，已作为证据缺口处理。\"}],\"runtime_validation_scope\":[\"tool_call_id 唯一性\",\"tool_name / capability_id / evidence_type 元字段完整性\",\"depends_on 引用一致性\",\"按打包期 MCP 工具快照校验工具是否存在\",\"按 MCP 工具真实入参定义校验已解析参数和前置依赖参数\"],\"mcp_tool_snapshot\":{\"status\":\"loaded\",\"snapshot_path\":\"/app/runtime-mcp/tools/runtime/fault-analysis-mcp-tool-snapshot.json\",\"source_mcp_url\":\"http://172.16.138.228:58001/mcp/group-5\",\"tool_count\":56,\"require_snapshot\":true,\"snapshot_generated_at\":\"2026-09-02T16:24:33.822107+08:00\",\"snapshot_loaded_at\":\"2026-09-03T08:47:02.846423+08:00\",\"error\":\"\"}},\"tool_call_count\":11,\"tool_call_plan\":[{\"tool_call_id\":\"source-asset-identity\",\"tool_name\":\"search_graph_assets\",\"capability_id\":\"business_access_object_identity_resolution\",\"evidence_type\":\"source_asset_identity\",\"object_role\":\"source\",\"parallel_group\":\"object_identity\",\"depends_on\":[],\"priority\":1,\"purpose\":\"把源对象和目标对象解析为可追踪资产、设备、IP、网段或业务对象。\",\"query_tier\":\"runtime-expanded\",\"timeout_ms\":null,\"resolved_arguments\":{\"q\":\"172.16.1.165\",\"limit\":10},\"argument_resolution_status\":\"ready\",\"runtime_argument_sources\":{},\"resolved_argument_sources\":[],\"missing_arguments\":[],\"dependency_tool_call_ids\":[],\"batch_submit_contract\":{\"tool\":\"fault_analysis_submit_tool_results\",\"run_dir\":\"<use start.run_dir>\",\"batch_rule\":\"同一就绪依赖波次内已经完成、失败或跳过的 SOC 取证结果，必须合并到一次 tool_results 数组中提交；不得按计划项逐条调用回填工具。\",\"item_required_fields\":[\"tool_call_id\",\"tool_name\",\"capability_id\",\"evidence_type\",\"object_role\",\"input\",\"content\",\"status\"]}},{\"tool_call_id\":\"destination-asset-identity\",\"tool_name\":\"search_graph_assets\",\"capability_id\":\"business_access_object_identity_resolution\",\"evidence_type\":\"destination_asset_identity\",\"object_role\":\"destination\",\"parallel_group\":\"object_identity\",\"depends_on\":[],\"priority\":2,\"purpose\":\"把源对象和目标对象解析为可追踪资产、设备、IP、网段或业务对象。\",\"query_tier\":\"runtime-expanded\",\"timeout_ms\":null,\"resolved_arguments\":{\"q\":\"172.16.2.100\",\"limit\":10},\"argument_resolution_status\":\"ready\",\"runtime_argument_sources\":{},\"resolved_argument_sources\":[],\"missing_arguments\":[],\"dependency_tool_call_ids\":[],\"batch_submit_contract\":{\"tool\":\"fault_analysis_submit_tool_results\",\"run_dir\":\"<use start.run_dir>\",\"batch_rule\":\"同一就绪依赖波次内已经完成、失败或跳过的 SOC 取证结果，必须合并到一次 tool_results 数组中提交；不得按计划项逐条调用回填工具。\",\"item_required_fields\":[\"tool_call_id\",\"tool_name\",\"capability_id\",\"evidence_type\",\"object_role\",\"input\",\"content\",\"status\"]}},{\"tool_call_id\":\"source-business-access-asset-state-detail\",\"tool_name\":\"get_soc_asset_by_asset_id\",\"capability_id\":\"business_access_asset_state_detail\",\"evidence_type\":\"source_asset_detail\",\"object_role\":\"source\",\"parallel_group\":\"asset_detail\",\"depends_on\":[\"source-asset-identity\"],\"priority\":3,\"purpose\":\"查询源资产和目标资产基础状态、探测状态、在线状态和最后发现时间。\",\"query_tier\":\"runtime-expanded\",\"timeout_ms\":null,\"resolved_arguments\":{\"assetId\":null},\"argument_resolution_status\":\"deferred_until_dependency_result\",\"runtime_argument_sources\":[{\"argument\":\"assetId\",\"from_tool_call_id\":\"source-asset-identity\",\"path_candidates\":[\"$.assetId\",\"$.data.assetId\",\"$.data[0].assetId\",\"$.rows[0].assetId\",\"$.records[0].assetId\"]}],\"resolved_argument_sources\":[],\"missing_arguments\":[],\"dependency_tool_call_ids\":[\"source-asset-identity\"],\"batch_submit_contract\":{\"tool\":\"fault_analysis_submit_tool_results\",\"run_dir\":\"<use start.run_dir>\",\"batch_rule\":\"同一就绪依赖波次内已经完成、失败或跳过的 SOC 取证结果，必须合并到一次 tool_results 数组中提交；不得按计划项逐条调用回填工具。\",\"item_required_fields\":[\"tool_call_id\",\"tool_name\",\"capability_id\",\"evidence_type\",\"object_role\",\"input\",\"content\",\"status\"]}},{\"tool_call_id\":\"destination-business-access-asset-state-detail\",\"tool_name\":\"get_soc_asset_by_asset_id\",\"capability_id\":\"business_access_asset_state_detail\",\"evidence_type\":\"destination_asset_detail\",\"object_role\":\"destination\",\"parallel_group\":\"asset_detail\",\"depends_on\":[\"destination-asset-identity\"],\"priority\":3,\"purpose\":\"查询源资产和目标资产基础状态、探测状态、在线状态和最后发现时间。\",\"query_tier\":\"runtime-expanded\",\"timeout_ms\":null,\"resolved_arguments\":{\"assetId\":null},\"argument_resolution_status\":\"deferred_until_dependency_result\",\"runtime_argument_sources\":[{\"argument\":\"assetId\",\"from_tool_call_id\":\"destination-asset-identity\",\"path_candidates\":[\"$.assetId\",\"$.data.assetId\",\"$.data[0].assetId\",\"$.rows[0].assetId\",\"$.records[0].assetId\"]}],\"resolved_argument_sources\":[],\"missing_arguments\":[],\"dependency_tool_call_ids\":[\"destination-asset-identity\"],\"batch_submit_contract\":{\"tool\":\"fault_analysis_submit_tool_results\",\"run_dir\":\"<use start.run_dir>\",\"batch_rule\":\"同一就绪依赖波次内已经完成、失败或跳过的 SOC 取证结果，必须合并到一次 tool_results 数组中提交；不得按计划项逐条调用回填工具。\",\"item_required_fields\":[\"tool_call_id\",\"tool_name\",\"capability_id\",\"evidence_type\",\"object_role\",\"input\",\"content\",\"status\"]}},{\"tool_call_id\":\"source-business-access-business-context-lookup\",\"tool_name\":\"get_soc_asset_biz_systems\",\"capability_id\":\"business_access_business_context_lookup\",\"evidence_type\":\"asset_business_context\",\"object_role\":\"source\",\"parallel_group\":\"asset_detail\",\"depends_on\":[\"source-asset-identity\"],\"priority\":3,\"purpose\":\"查询源资产和目标资产关联业务系统，用于判断影响范围。\",\"query_tier\":\"runtime-expanded\",\"timeout_ms\":null,\"resolved_arguments\":{\"assetId\":null},\"argument_resolution_status\":\"deferred_until_dependency_result\",\"runtime_argument_sources\":[{\"argument\":\"assetId\",\"from_tool_call_id\":\"source-asset-identity\",\"path_candidates\":[\"$.assetId\",\"$.data.assetId\",\"$.data[0].assetId\",\"$.rows[0].assetId\",\"$.records[0].assetId\"]}],\"resolved_argument_sources\":[],\"missing_arguments\":[],\"dependency_tool_call_ids\":[\"source-asset-identity\"],\"batch_submit_contract\":{\"tool\":\"fault_analysis_submit_tool_results\",\"run_dir\":\"<use start.run_dir>\",\"batch_rule\":\"同一就绪依赖波次内已经完成、失败或跳过的 SOC 取证结果，必须合并到一次 tool_results 数组中提交；不得按计划项逐条调用回填工具。\",\"item_required_fields\":[\"tool_call_id\",\"tool_name\",\"capability_id\",\"evidence_type\",\"object_role\",\"input\",\"content\",\"status\"]}},{\"tool_call_id\":\"destination-business-access-business-context-lookup\",\"tool_name\":\"get_soc_asset_biz_systems\",\"capability_id\":\"business_access_business_context_lookup\",\"evidence_type\":\"asset_business_context\",\"object_role\":\"destination\",\"parallel_group\":\"asset_detail\",\"depends_on\":[\"destination-asset-identity\"],\"priority\":3,\"purpose\":\"查询源资产和目标资产关联业务系统，用于判断影响范围。\",\"query_tier\":\"runtime-expanded\",\"timeout_ms\":null,\"resolved_arguments\":{\"assetId\":null},\"argument_resolution_status\":\"deferred_until_dependency_result\",\"runtime_argument_sources\":[{\"argument\":\"assetId\",\"from_tool_call_id\":\"destination-asset-identity\",\"path_candidates\":[\"$.assetId\",\"$.data.assetId\",\"$.data[0].assetId\",\"$.rows[0].assetId\",\"$.records[0].assetId\"]}],\"resolved_argument_sources\":[],\"missing_arguments\":[],\"dependency_tool_call_ids\":[\"destination-asset-identity\"],\"batch_submit_contract\":{\"tool\":\"fault_analysis_submit_tool_results\",\"run_dir\":\"<use start.run_dir>\",\"batch_rule\":\"同一就绪依赖波次内已经完成、失败或跳过的 SOC 取证结果，必须合并到一次 tool_results 数组中提交；不得按计划项逐条调用回填工具。\",\"item_required_fields\":[\"tool_call_id\",\"tool_name\",\"capability_id\",\"evidence_type\",\"object_role\",\"input\",\"content\",\"status\"]}},{\"tool_call_id\":\"primary-reachability-path\",\"tool_name\":\"get_reachability_path_by_ip\",\"capability_id\":\"business_access_primary_reachability_path\",\"evidence_type\":\"primary_reachability_path\",\"object_role\":\"source_to_destination\",\"parallel_group\":\"path\",\"depends_on\":[],\"priority\":2,\"purpose\":\"查询源到目标的主路径可达状态、路径摘要和不可达原因。\",\"query_tier\":\"runtime-expanded\",\"timeout_ms\":null,\"resolved_arguments\":{\"srcIp\":\"172.16.1.165\",\"dstIp\":\"172.16.2.100\"},\"argument_resolution_status\":\"ready\",\"runtime_argument_sources\":{},\"resolved_argument_sources\":[],\"missing_arguments\":[],\"dependency_tool_call_ids\":[],\"batch_submit_contract\":{\"tool\":\"fault_analysis_submit_tool_results\",\"run_dir\":\"<use start.run_dir>\",\"batch_rule\":\"同一就绪依赖波次内已经完成、失败或跳过的 SOC 取证结果，必须合并到一次 tool_results 数组中提交；不得按计划项逐条调用回填工具。\",\"item_required_fields\":[\"tool_call_id\",\"tool_name\",\"capability_id\",\"evidence_type\",\"object_role\",\"input\",\"content\",\"status\"]}},{\"tool_call_id\":\"path-cross-check\",\"tool_name\":\"get_graph_path_query\",\"capability_id\":\"business_access_path_cross_check\",\"evidence_type\":\"path_cross_check\",\"object_role\":\"source_to_destination\",\"parallel_group\":\"path\",\"depends_on\":[],\"priority\":2,\"purpose\":\"对主路径结果做交叉验证，补充 hops、gaps、解释和工具置信提示。\",\"query_tier\":\"runtime-expanded\",\"timeout_ms\":null,\"resolved_arguments\":{\"srcIp\":\"172.16.1.165\",\"dstIp\":\"172.16.2.100\"},\"argument_resolution_status\":\"ready\",\"runtime_argument_sources\":{},\"resolved_argument_sources\":[],\"missing_arguments\":[],\"dependency_tool_call_ids\":[],\"batch_submit_contract\":{\"tool\":\"fault_analysis_submit_tool_results\",\"run_dir\":\"<use start.run_dir>\",\"batch_rule\":\"同一就绪依赖波次内已经完成、失败或跳过的 SOC 取证结果，必须合并到一次 tool_results 数组中提交；不得按计划项逐条调用回填工具。\",\"item_required_fields\":[\"tool_call_id\",\"tool_name\",\"capability_id\",\"evidence_type\",\"object_role\",\"input\",\"content\",\"status\"]}},{\"tool_call_id\":\"asset-reachability-path\",\"tool_name\":\"get_reachability_path\",\"capability_id\":\"business_access_asset_based_reachability_path\",\"evidence_type\":\"asset_based_reachability_path\",\"object_role\":\"source_to_destination\",\"parallel_group\":\"path\",\"depends_on\":[\"destination-asset-identity\",\"source-asset-identity\"],\"priority\":4,\"purpose\":\"在源目标已解析为资产标识时，用资产标识补查路径，避免 IP 入参导致的工具参数误判。\",\"query_tier\":\"runtime-expanded\",\"timeout_ms\":null,\"resolved_arguments\":{},\"argument_resolution_status\":\"deferred_until_dependency_result\",\"runtime_argument_sources\":[{\"argument\":\"from\",\"from_tool_call_id\":\"source-asset-identity\",\"path_candidates\":[\"$.assetId\",\"$.data.assetId\",\"$.data[0].assetId\",\"$.rows[0].assetId\",\"$.records[0].assetId\"]},{\"argument\":\"to\",\"from_tool_call_id\":\"destination-asset-identity\",\"path_candidates\":[\"$.assetId\",\"$.data.assetId\",\"$.data[0].assetId\",\"$.rows[0].assetId\",\"$.records[0].assetId\"]}],\"resolved_argument_sources\":[],\"missing_arguments\":[],\"dependency_tool_call_ids\":[\"destination-asset-identity\",\"source-asset-identity\"],\"batch_submit_contract\":{\"tool\":\"fault_analysis_submit_tool_results\",\"run_dir\":\"<use start.run_dir>\",\"batch_rule\":\"同一就绪依赖波次内已经完成、失败或跳过的 SOC 取证结果，必须合并到一次 tool_results 数组中提交；不得按计划项逐条调用回填工具。\",\"item_required_fields\":[\"tool_call_id\",\"tool_name\",\"capability_id\",\"evidence_type\",\"object_role\",\"input\",\"content\",\"status\"]}},{\"tool_call_id\":\"source-business-access-topology-context-lookup\",\"tool_name\":\"get_graph_enrich_topology_by_asset_id\",\"capability_id\":\"business_access_topology_context_lookup\",\"evidence_type\":\"topology_node_context\",\"object_role\":\"source\",\"parallel_group\":\"asset_detail\",\"depends_on\":[\"source-asset-identity\"],\"priority\":3,\"purpose\":\"查询源资产或目标资产邻居、同业务对象、图谱新鲜度和爆炸半径摘要。\",\"query_tier\":\"runtime-expanded\",\"timeout_ms\":null,\"resolved_arguments\":{\"assetId\":null},\"argument_resolution_status\":\"deferred_until_dependency_result\",\"runtime_argument_sources\":[{\"argument\":\"assetId\",\"from_tool_call_id\":\"source-asset-identity\",\"path_candidates\":[\"$.assetId\",\"$.data.assetId\",\"$.data[0].assetId\",\"$.rows[0].assetId\",\"$.records[0].assetId\"]}],\"resolved_argument_sources\":[],\"missing_arguments\":[],\"dependency_tool_call_ids\":[\"source-asset-identity\"],\"batch_submit_contract\":{\"tool\":\"fault_analysis_submit_tool_results\",\"run_dir\":\"<use start.run_dir>\",\"batch_rule\":\"同一就绪依赖波次内已经完成、失败或跳过的 SOC 取证结果，必须合并到一次 tool_results 数组中提交；不得按计划项逐条调用回填工具。\",\"item_required_fields\":[\"tool_call_id\",\"tool_name\",\"capability_id\",\"evidence_type\",\"object_role\",\"input\",\"content\",\"status\"]}},{\"tool_call_id\":\"destination-business-access-topology-context-lookup\",\"tool_name\":\"get_graph_enrich_topology_by_asset_id\",\"capability_id\":\"business_access_topology_context_lookup\",\"evidence_type\":\"topology_node_context\",\"object_role\":\"destination\",\"parallel_group\":\"asset_detail\",\"depends_on\":[\"destination-asset-identity\"],\"priority\":3,\"purpose\":\"查询源资产或目标资产邻居、同业务对象、图谱新鲜度和爆炸半径摘要。\",\"query_tier\":\"runtime-expanded\",\"timeout_ms\":null,\"resolved_arguments\":{\"assetId\":null},\"argument_resolution_status\":\"deferred_until_dependency_result\",\"runtime_argument_sources\":[{\"argument\":\"assetId\",\"from_tool_call_id\":\"destination-asset-identity\",\"path_candidates\":[\"$.assetId\",\"$.data.assetId\",\"$.data[0].assetId\",\"$.rows[0].assetId\",\"$.records[0].assetId\"]}],\"resolved_argument_sources\":[],\"missing_arguments\":[],\"dependency_tool_call_ids\":[\"destination-asset-identity\"],\"batch_submit_contract\":{\"tool\":\"fault_analysis_submit_tool_results\",\"run_dir\":\"<use start.run_dir>\",\"batch_rule\":\"同一就绪依赖波次内已经完成、失败或跳过的 SOC 取证结果，必须合并到一次 tool_results 数组中提交；不得按计划项逐条调用回填工具。\",\"item_required_fields\":[\"tool_call_id\",\"tool_name\",\"capability_id\",\"evidence_type\",\"object_role\",\"input\",\"content\",\"status\"]}}],\"execution_rules\":[\"只能调用本轮取证查询计划 tool_call_plan 中列出的 SOC 只读取证工具。\",\"不得自行增加计划外 SOC 工具；需要补充取证时必须由用户明确发起新一轮分析并提交新的结构化计划。\",\"ready 计划项按 resolved_arguments 直接调用；deferred_until_dependency_result 计划项必须先完成 depends_on 前置调用。\",\"每次调用 fault_analysis_submit_tool_results 后，后续依赖计划项只允许使用返回的 next_ready_tool_call_plan[].resolved_arguments；不得从原始 SOC 返回里自行挑选 assetId、vid、from 或 to。\",\"deferred 计划项由 Runtime 基于 runtime_argument_sources 解析参数；解析失败的计划项会自动形成 dependency_blocked 跳过结果，不得传空值、占位符或自行编造参数继续调用。\",\"所有 SOC 工具返回都必须调用 fault_analysis_submit_tool_results 批量提交；即使只有一项结果，也必须使用 tool_results 数组。\",\"不要提交 result_summary；运行时会基于原始 content 确定性生成用户可读摘要。\",\"fault_analysis_submit_tool_results 只负责回填取证结果和返回下一批计划；不会返回最终正文。\",\"只有批量回填返回 should_finalize=true 时，才调用 fault_analysis_finalize；最终正文必须通过 fault_analysis_get_result 获取。\",\"不要调用任何 fault_analysis_* 低层调试工具；正式流程只允许 start、submit_tool_results、finalize、get_status 和 get_result。\"],\"submit_tool_results_item_required_fields\":[\"run_dir\",\"tool_call_id\",\"tool_name\",\"capability_id\",\"evidence_type\",\"object_role\",\"input\",\"content\",\"status\"]},\"next_required_action\":\"按 04-tool-call-plan.json 执行 SOC 只读取证；所有 SOC 工具结果通过 取证工具 批量提交，即使只有一项结果也使用 tool_results 数组；不需要提交 result_summary，运行时会基于原始 content 生成摘要；全部提交后调用 取证工具 完成归一化、规则、置信度、入库、清理和回复生成。\"}"
+            }
+          ]
+        },
+        "tool_names": [
+          "mcp__fault-analysis__search_graph_assets",
+          "mcp__fault-analysis__get_reachability_path_by_ip",
+          "mcp__fault-analysis__get_graph_path_query"
+        ]
+      },
+      "response": {
+        "id": "msg_20260903155844a1d2311b27b94577",
+        "type": "message",
+        "role": "assistant",
+        "content": [
+          {
+            "type": "tool_use",
+            "id": "call_f73ee317f79b45459e7423e2",
+            "name": "mcp__fault-analysis__search_graph_assets",
+            "input": {
+              "limit": 10,
+              "q": "172.16.1.165"
+            }
+          },
+          {
+            "type": "tool_use",
+            "id": "call_c9008bc6b3d84850afd3158e",
+            "name": "mcp__fault-analysis__search_graph_assets",
+            "input": {
+              "limit": 10,
+              "q": "172.16.2.100"
+            }
+          },
+          {
+            "type": "tool_use",
+            "id": "call_6c7a19fa1dad4db6b30f850c",
+            "name": "mcp__fault-analysis__get_reachability_path_by_ip",
+            "input": {
+              "dstIp": "172.16.2.100",
+              "srcIp": "172.16.1.165"
+            }
+          },
+          {
+            "type": "tool_use",
+            "id": "call_3b00876fa9b34469ad545a3f",
+            "name": "mcp__fault-analysis__get_graph_path_query",
+            "input": {
+              "dstIp": "172.16.2.100",
+              "srcIp": "172.16.1.165"
+            }
+          }
+        ],
+        "model": "glm-5.3",
+        "stop_reason": "tool_use",
+        "stop_sequence": null,
+        "usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        }
+      }
+    },
+    {
+      "name": "agentgov-682127f3-a608-44ae-991f-51c83f770bd7-04",
+      "match": {
+        "match_type": "contains",
+        "message": {
+          "role": "user",
+          "content": [
+            {
+              "type": "tool_result",
+              "tool_use_id": "call_3b00876fa9b34469ad545a3f",
+              "content": "{\"status_code\":500,\"result\":null,\"error_message\":\"上游 API 返回 500\"}",
+              "is_error": true
+            }
+          ]
+        },
+        "tool_names": [
+          "mcp__fault-analysis__fault_analysis_submit_tool_results"
+        ]
+      },
+      "response": {
+        "id": "msg_202609031558565b34197add1a4153",
+        "type": "message",
+        "role": "assistant",
+        "content": [
+          {
+            "type": "tool_use",
+            "id": "call_1a4dcda75d95417dbe351747",
+            "name": "mcp__fault-analysis__fault_analysis_submit_tool_results",
+            "input": {
+              "body": {
+                "run_dir": "runs/RUN-20260903-155841-37eae6",
+                "tool_results": [
+                  {
+                    "capability_id": "business_access_object_identity_resolution",
+                    "content": {
+                      "code": 200,
+                      "data": [
+                        {
+                          "assetId": 3617445,
+                          "ip": "172.16.1.165",
+                          "name": "EDR-Server-虚拟机",
+                          "assetType": "edr"
+                        },
+                        {
+                          "assetId": 3617440,
+                          "ip": "172.16.1.165",
+                          "name": "EDR-Server-虚拟机",
+                          "assetType": "vm"
+                        },
+                        {
+                          "assetId": 3617447,
+                          "ip": "172.16.1.165",
+                          "name": "EDR-Server-虚拟机",
+                          "assetType": "edr"
+                        }
+                      ],
+                      "msg": "操作成功"
+                    },
+                    "evidence_type": "source_asset_identity",
+                    "input": {
+                      "limit": 10,
+                      "q": "172.16.1.165"
+                    },
+                    "object_role": "source",
+                    "status": "success",
+                    "tool_call_id": "source-asset-identity",
+                    "tool_name": "search_graph_assets"
+                  },
+                  {
+                    "capability_id": "business_access_object_identity_resolution",
+                    "content": {
+                      "code": 200,
+                      "data": [
+                        {
+                          "assetId": 3617448,
+                          "ip": "172.16.2.100",
+                          "name": "版本服务器",
+                          "assetType": "server"
+                        }
+                      ],
+                      "msg": "操作成功"
+                    },
+                    "evidence_type": "destination_asset_identity",
+                    "input": {
+                      "limit": 10,
+                      "q": "172.16.2.100"
+                    },
+                    "object_role": "destination",
+                    "status": "success",
+                    "tool_call_id": "destination-asset-identity",
+                    "tool_name": "search_graph_assets"
+                  },
+                  {
+                    "capability_id": "business_access_primary_reachability_path",
+                    "content": {
+                      "data": {
+                        "aec": null,
+                        "natApplied": null,
+                        "path": [
+                          "3617442"
+                        ],
+                        "reachable": true,
+                        "reason": null,
+                        "routeOnlyPath": null,
+                        "verdict": "REACHABLE",
+                        "viaDstIp": null,
+                        "viaSrcIp": null
+                      }
+                    },
+                    "evidence_type": "primary_reachability_path",
+                    "input": {
+                      "dstIp": "172.16.2.100",
+                      "srcIp": "172.16.1.165"
+                    },
+                    "object_role": "source_to_destination",
+                    "status": "success",
+                    "tool_call_id": "primary-reachability-path",
+                    "tool_name": "get_reachability_path_by_ip"
+                  },
+                  {
+                    "capability_id": "business_access_path_cross_check",
+                    "content": {
+                      "error_message": "上游 API 返回 500",
+                      "result": null,
+                      "status_code": 500
+                    },
+                    "error": "上游 API 返回 500",
+                    "evidence_type": "path_cross_check",
+                    "input": {
+                      "dstIp": "172.16.2.100",
+                      "srcIp": "172.16.1.165"
+                    },
+                    "object_role": "source_to_destination",
+                    "status": "failed",
+                    "tool_call_id": "path-cross-check",
+                    "tool_name": "get_graph_path_query"
+                  }
+                ]
+              }
+            }
+          }
+        ],
+        "model": "glm-5.3",
+        "stop_reason": "tool_use",
+        "stop_sequence": null,
+        "usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        }
+      }
+    },
+    {
+      "name": "agentgov-682127f3-a608-44ae-991f-51c83f770bd7-05",
+      "match": {
+        "match_type": "contains",
+        "message": {
+          "role": "user",
+          "content": [
+            {
+              "type": "tool_result",
+              "tool_use_id": "call_1a4dcda75d95417dbe351747",
+              "content": "{\"status\":\"appended\",\"run_dir\":\"runs/RUN-20260903-155841-37eae6\",\"progress\":{\"plan_item_count\":11,\"submitted_plan_item_count\":4,\"remaining_unsubmitted_count\":7,\"submitted_in_this_batch\":4,\"accepted_in_this_batch\":4,\"failed_in_this_batch\":0,\"auto_skipped_dependency_blocked_count\":0,\"dependency_blocked_count\":0,\"waiting_count\":0,\"next_ready_count\":7,\"returned_next_ready_count\":7,\"deferred_ready_count\":0,\"next_ready_window_limit\":10,\"all_done\":false},\"next_ready_tool_call_plan\":[{\"tool_call_id\":\"destination-business-access-asset-state-detail\",\"tool_name\":\"get_soc_asset_by_asset_id\",\"capability_id\":\"business_access_asset_state_detail\",\"evidence_type\":\"destination_asset_detail\",\"object_role\":\"destination\",\"resolved_arguments\":{\"assetId\":3617448}},{\"tool_call_id\":\"destination-business-access-business-context-lookup\",\"tool_name\":\"get_soc_asset_biz_systems\",\"capability_id\":\"business_access_business_context_lookup\",\"evidence_type\":\"asset_business_context\",\"object_role\":\"destination\",\"resolved_arguments\":{\"assetId\":3617448}},{\"tool_call_id\":\"destination-business-access-topology-context-lookup\",\"tool_name\":\"get_graph_enrich_topology_by_asset_id\",\"capability_id\":\"business_access_topology_context_lookup\",\"evidence_type\":\"topology_node_context\",\"object_role\":\"destination\",\"resolved_arguments\":{\"assetId\":3617448}},{\"tool_call_id\":\"source-business-access-asset-state-detail\",\"tool_name\":\"get_soc_asset_by_asset_id\",\"capability_id\":\"business_access_asset_state_detail\",\"evidence_type\":\"source_asset_detail\",\"object_role\":\"source\",\"resolved_arguments\":{\"assetId\":3617440}},{\"tool_call_id\":\"source-business-access-business-context-lookup\",\"tool_name\":\"get_soc_asset_biz_systems\",\"capability_id\":\"business_access_business_context_lookup\",\"evidence_type\":\"asset_business_context\",\"object_role\":\"source\",\"resolved_arguments\":{\"assetId\":3617440}},{\"tool_call_id\":\"source-business-access-topology-context-lookup\",\"tool_name\":\"get_graph_enrich_topology_by_asset_id\",\"capability_id\":\"business_access_topology_context_lookup\",\"evidence_type\":\"topology_node_context\",\"object_role\":\"source\",\"resolved_arguments\":{\"assetId\":3617440}},{\"tool_call_id\":\"asset-reachability-path\",\"tool_name\":\"get_reachability_path\",\"capability_id\":\"business_access_asset_based_reachability_path\",\"evidence_type\":\"asset_based_reachability_path\",\"object_role\":\"source_to_destination\",\"resolved_arguments\":{\"from\":3617440,\"to\":3617448}}],\"next_ready_tool_call_ids\":[\"destination-business-access-asset-state-detail\",\"destination-business-access-business-context-lookup\",\"destination-business-access-topology-context-lookup\",\"source-business-access-asset-state-detail\",\"source-business-access-business-context-lookup\",\"source-business-access-topology-context-lookup\",\"asset-reachability-path\"],\"missing_tool_call_ids\":[\"source-business-access-asset-state-detail\",\"destination-business-access-asset-state-detail\",\"source-business-access-business-context-lookup\",\"destination-business-access-business-context-lookup\",\"asset-reachability-path\",\"source-business-access-topology-context-lookup\",\"destination-business-access-topology-context-lookup\"],\"waiting_tool_call_ids\":[],\"deferred_ready_tool_call_ids\":[],\"should_finalize\":false,\"failed_items\":[],\"auto_skipped_tool_call_ids\":[],\"next_required_action\":\"下一步只调用 next_ready_tool_call_plan 中列出的取证工具：destination-business-access-asset-state-detail、destination-business-access-business-context-lookup、destination-business-access-topology-context-lookup、source-business-access-asset-state-detail、source-business-access-business-context-lookup、source-business-access-topology-context-lookup、asset-reachability-path。工具入参必须使用 resolved_arguments；完成后继续用 fault_analysis_submit_tool_results 批量回填，不得调用分析收口工具。\"}"
+            }
+          ]
+        },
+        "tool_names": [
+          "mcp__fault-analysis__get_soc_asset_by_asset_id",
+          "mcp__fault-analysis__get_soc_asset_biz_systems",
+          "mcp__fault-analysis__get_graph_enrich_topology_by_asset_id",
+          "mcp__fault-analysis__get_reachability_path"
+        ]
+      },
+      "response": {
+        "id": "msg_20260903155908bad6743a1d454387",
+        "type": "message",
+        "role": "assistant",
+        "content": [
+          {
+            "type": "tool_use",
+            "id": "call_17a8bd2662064d44b070b63d",
+            "name": "mcp__fault-analysis__get_soc_asset_by_asset_id",
+            "input": {
+              "assetId": 3617448
+            }
+          },
+          {
+            "type": "tool_use",
+            "id": "call_f792625d7ee24dddbc3308c9",
+            "name": "mcp__fault-analysis__get_soc_asset_biz_systems",
+            "input": {
+              "assetId": 3617448
+            }
+          },
+          {
+            "type": "tool_use",
+            "id": "call_aeec511619a34135a23ce64b",
+            "name": "mcp__fault-analysis__get_graph_enrich_topology_by_asset_id",
+            "input": {
+              "assetId": 3617448
+            }
+          },
+          {
+            "type": "tool_use",
+            "id": "call_b8a3c6c761a54b90b486b767",
+            "name": "mcp__fault-analysis__get_soc_asset_by_asset_id",
+            "input": {
+              "assetId": 3617440
+            }
+          },
+          {
+            "type": "tool_use",
+            "id": "call_fcf8b15af83445b2b8290f4b",
+            "name": "mcp__fault-analysis__get_soc_asset_biz_systems",
+            "input": {
+              "assetId": 3617440
+            }
+          },
+          {
+            "type": "tool_use",
+            "id": "call_d521f374e2104d0fbfe2319b",
+            "name": "mcp__fault-analysis__get_graph_enrich_topology_by_asset_id",
+            "input": {
+              "assetId": 3617440
+            }
+          },
+          {
+            "type": "tool_use",
+            "id": "call_59e173dbbc9540db8ef2b6ed",
+            "name": "mcp__fault-analysis__get_reachability_path",
+            "input": {
+              "from": "3617440",
+              "to": "3617448"
+            }
+          }
+        ],
+        "model": "glm-5.3",
+        "stop_reason": "tool_use",
+        "stop_sequence": null,
+        "usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        }
+      }
+    },
+    {
+      "name": "agentgov-682127f3-a608-44ae-991f-51c83f770bd7-06",
+      "match": {
+        "match_type": "contains",
+        "message": {
+          "role": "user",
+          "content": [
+            {
+              "type": "tool_result",
+              "tool_use_id": "call_59e173dbbc9540db8ef2b6ed",
+              "content": "{\"msg\":\"操作成功\",\"code\":200,\"data\":{\"reachable\":false,\"verdict\":\"UNKNOWN\",\"path\":null,\"aec\":null,\"reason\":\"src_no_gateway\",\"natApplied\":null,\"routeOnlyPath\":null,\"viaSrcIp\":null,\"viaDstIp\":null}}"
+            }
+          ]
+        },
+        "tool_names": [
+          "mcp__fault-analysis__fault_analysis_submit_tool_results"
+        ]
+      },
+      "response": {
+        "id": "msg_202609031559219ba28058fc5548d8",
+        "type": "message",
+        "role": "assistant",
+        "content": [
+          {
+            "type": "tool_use",
+            "id": "call_bba8606914304846a219587e",
+            "name": "mcp__fault-analysis__fault_analysis_submit_tool_results",
+            "input": {
+              "body": {
+                "run_dir": "runs/RUN-20260903-155841-37eae6",
+                "tool_results": [
+                  {
+                    "capability_id": "business_access_asset_state_detail",
+                    "content": {
+                      "data": {
+                        "assetId": 3617448,
+                        "assetType": "server",
+                        "collectAnomaly": 0,
+                        "createTime": "2026-07-15T10:18:11",
+                        "hostname": "版本服务器",
+                        "hostAssetId": null,
+                        "importance": null,
+                        "intakeMode": "active_collect",
+                        "ip": "172.16.2.100",
+                        "ips": [
+                          {
+                            "ip": "172.16.2.100",
+                            "ipType": "business",
+                            "isPrimary": 0,
+                            "mac": "00:0c:29:13:53:cc",
+                            "netmask": "255.255.255.0"
+                          }
+                        ],
+                        "lastProbeAt": "2026-09-03T15:56:26.144829",
+                        "lastSeenAt": null,
+                        "layerId": 4,
+                        "location": null,
+                        "mgmtManualLocked": 1,
+                        "nestingKind": 0,
+                        "networkTier": null,
+                        "online": "offline",
+                        "onlineBasis": null,
+                        "probeState": "unreachable",
+                        "source": "manual",
+                        "status": "active",
+                        "techStatus": null,
+                        "uniqueKey": "172.16.2.100",
+                        "uniqueKeyType": "IP",
+                        "updateTime": "2026-09-02T11:21:04.553282",
+                        "vendor": null
+                      }
+                    },
+                    "evidence_type": "destination_asset_detail",
+                    "input": {
+                      "assetId": 3617448
+                    },
+                    "object_role": "destination",
+                    "status": "success",
+                    "tool_call_id": "destination-business-access-asset-state-detail",
+                    "tool_name": "get_soc_asset_by_asset_id"
+                  },
+                  {
+                    "capability_id": "business_access_business_context_lookup",
+                    "content": {
+                      "code": 200,
+                      "data": [],
+                      "msg": "操作成功"
+                    },
+                    "evidence_type": "asset_business_context",
+                    "input": {
+                      "assetId": 3617448
+                    },
+                    "object_role": "destination",
+                    "status": "success",
+                    "tool_call_id": "destination-business-access-business-context-lookup",
+                    "tool_name": "get_soc_asset_biz_systems"
+                  },
+                  {
+                    "capability_id": "business_access_topology_context_lookup",
+                    "content": {
+                      "data": {
+                        "assetId": 3617448,
+                        "assetInGraph": true,
+                        "blastRadius": {
+                          "criticalBizCount": 0,
+                          "criticalBizSystems": [],
+                          "hops": 3,
+                          "reachableAssetCount": 0,
+                          "reachableTruncated": false
+                        },
+                        "computedAt": "2026-09-03T07:59:16.308805041Z",
+                        "graphStale": false,
+                        "neighborCount": 0,
+                        "neighbors": [],
+                        "neighborsTruncated": false,
+                        "pathToCriticalAsset": {
+                          "found": false,
+                          "hops": 0,
+                          "reason": "NO_CRITICAL_WITHIN_LIMIT"
+                        },
+                        "sameBizAssetCount": 0,
+                        "sameBizAssets": [],
+                        "self": {
+                          "assetId": 3617448,
+                          "assetType": "server",
+                          "bizSystems": [],
+                          "hostname": "版本服务器",
+                          "ip": "172.16.2.100",
+                          "isCritical": false
+                        }
+                      }
+                    },
+                    "evidence_type": "topology_node_context",
+                    "input": {
+                      "assetId": 3617448
+                    },
+                    "object_role": "destination",
+                    "status": "success",
+                    "tool_call_id": "destination-business-access-topology-context-lookup",
+                    "tool_name": "get_graph_enrich_topology_by_asset_id"
+                  },
+                  {
+                    "capability_id": "business_access_asset_state_detail",
+                    "content": {
+                      "data": {
+                        "assetId": 3617440,
+                        "assetType": "vm",
+                        "collectAnomaly": 0,
+                        "createTime": "2026-06-30T10:20:42",
+                        "deptId": 102,
+                        "hostAssetId": 3617426,
+                        "hostHostname": "部署验证环境服务器",
+                        "hostIp": "172.16.138.226",
+                        "hostname": "EDR-Server-虚拟机",
+                        "importance": null,
+                        "intakeMode": "active_collect",
+                        "ip": "172.16.1.165",
+                        "ips": [
+                          {
+                            "ip": "172.16.1.165",
+                            "ipType": "business",
+                            "isPrimary": 1,
+                            "mac": "00:0c:29:67:07:34",
+                            "netmask": "255.255.255.0"
+                          }
+                        ],
+                        "lastProbeAt": "2026-09-03T15:56:16.135176",
+                        "lastSeenAt": "2026-09-03T15:40:07.988984",
+                        "layerId": 4,
+                        "mgmtManualLocked": 1,
+                        "nestingKind": 1,
+                        "networkTier": "core",
+                        "online": "online",
+                        "onlineBasis": "PROBED",
+                        "probeState": "reachable",
+                        "source": "manual",
+                        "status": "active",
+                        "techStatus": "in_use",
+                        "uniqueKey": "172.16.1.165",
+                        "uniqueKeyType": "IP",
+                        "updateTime": "2026-08-19T16:06:50.598672",
+                        "vendor": null
+                      }
+                    },
+                    "evidence_type": "source_asset_detail",
+                    "input": {
+                      "assetId": 3617440
+                    },
+                    "object_role": "source",
+                    "status": "success",
+                    "tool_call_id": "source-business-access-asset-state-detail",
+                    "tool_name": "get_soc_asset_by_asset_id"
+                  },
+                  {
+                    "capability_id": "business_access_business_context_lookup",
+                    "content": {
+                      "code": 200,
+                      "data": [],
+                      "msg": "操作成功"
+                    },
+                    "evidence_type": "asset_business_context",
+                    "input": {
+                      "assetId": 3617440
+                    },
+                    "object_role": "source",
+                    "status": "success",
+                    "tool_call_id": "source-business-access-business-context-lookup",
+                    "tool_name": "get_soc_asset_biz_systems"
+                  },
+                  {
+                    "capability_id": "business_access_topology_context_lookup",
+                    "content": {
+                      "data": {
+                        "assetId": 3617440,
+                        "assetInGraph": true,
+                        "blastRadius": {
+                          "criticalBizCount": 0,
+                          "criticalBizSystems": [],
+                          "hops": 3,
+                          "reachableAssetCount": 17,
+                          "reachableTruncated": false
+                        },
+                        "computedAt": "2026-09-03T07:59:19.606166370Z",
+                        "graphStale": false,
+                        "neighborCount": 3,
+                        "neighbors": [
+                          {
+                            "assetId": 3617345,
+                            "direction": "out",
+                            "edgeType": "connects_to",
+                            "hitCount": 35846,
+                            "hostname": "防火墙虚拟机",
+                            "ip": "172.16.1.1",
+                            "lastSeen": "2026-09-03T07:25:06Z"
+                          },
+                          {
+                            "assetId": 3617352,
+                            "direction": "out",
+                            "edgeType": "connects_to",
+                            "edgeTypeHitCountNote": null,
+                            "hitCount": 2,
+                            "hostname": "EDR Agent",
+                            "ip": "172.16.2.102",
+                            "lastSeen": "2026-07-07T01:46:51Z"
+                          },
+                          {
+                            "assetId": 3617353,
+                            "direction": "in",
+                            "edgeType": "connects_to",
+                            "hitCount": 2257,
+                            "hostname": "EDR-Agent",
+                            "ip": "172.16.2.103",
+                            "lastSeen": "2026-07-07T02:17:19Z"
+                          }
+                        ],
+                        "neighborsTruncated": false,
+                        "pathToCriticalAsset": {
+                          "found": false,
+                          "hops": 0,
+                          "reason": "NO_CRITICAL_WITHIN_LIMIT"
+                        },
+                        "sameBizAssetCount": 0,
+                        "sameBizAssets": [],
+                        "self": {
+                          "assetId": 3617440,
+                          "assetType": "vm",
+                          "bizSystems": [],
+                          "hostname": "EDR-Server-虚拟机",
+                          "ip": "172.16.1.165",
+                          "isCritical": false
+                        }
+                      }
+                    },
+                    "evidence_type": "topology_node_context",
+                    "input": {
+                      "assetId": 3617440
+                    },
+                    "object_role": "source",
+                    "status": "success",
+                    "tool_call_id": "source-business-access-topology-context-lookup",
+                    "tool_name": "get_graph_enrich_topology_by_asset_id"
+                  },
+                  {
+                    "capability_id": "business_access_asset_based_reachability_path",
+                    "content": {
+                      "data": {
+                        "aec": null,
+                        "natApplied": null,
+                        "path": null,
+                        "reachable": false,
+                        "reason": "src_no_gateway",
+                        "routeOnlyPath": null,
+                        "verdict": "UNKNOWN",
+                        "viaDstIp": null,
+                        "viaSrcIp": null
+                      }
+                    },
+                    "evidence_type": "asset_based_reachability_path",
+                    "input": {
+                      "from": 3617440,
+                      "to": 3617448
+                    },
+                    "object_role": "source_to_destination",
+                    "status": "success",
+                    "tool_call_id": "asset-reachability-path",
+                    "tool_name": "get_reachability_path"
+                  }
+                ]
+              }
+            }
+          }
+        ],
+        "model": "glm-5.3",
+        "stop_reason": "tool_use",
+        "stop_sequence": null,
+        "usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        }
+      }
+    },
+    {
+      "name": "agentgov-682127f3-a608-44ae-991f-51c83f770bd7-07",
+      "match": {
+        "match_type": "contains",
+        "message": {
+          "role": "user",
+          "content": [
+            {
+              "type": "tool_result",
+              "tool_use_id": "call_bba8606914304846a219587e",
+              "content": "{\"status\":\"appended\",\"run_dir\":\"runs/RUN-20260903-155841-37eae6\",\"progress\":{\"plan_item_count\":11,\"submitted_plan_item_count\":11,\"remaining_unsubmitted_count\":0,\"submitted_in_this_batch\":7,\"accepted_in_this_batch\":7,\"failed_in_this_batch\":0,\"auto_skipped_dependency_blocked_count\":0,\"dependency_blocked_count\":0,\"waiting_count\":0,\"next_ready_count\":0,\"returned_next_ready_count\":0,\"deferred_ready_count\":0,\"next_ready_window_limit\":10,\"all_done\":true},\"next_ready_tool_call_plan\":[],\"next_ready_tool_call_ids\":[],\"missing_tool_call_ids\":[],\"waiting_tool_call_ids\":[],\"deferred_ready_tool_call_ids\":[],\"should_finalize\":true,\"failed_items\":[],\"auto_skipped_tool_call_ids\":[],\"next_required_action\":\"所有取证计划项已完成、失败或自动降级，下一步调用分析收口工具。\"}"
+            }
+          ]
+        },
+        "tool_names": [
+          "mcp__fault-analysis__fault_analysis_finalize"
+        ]
+      },
+      "response": {
+        "id": "msg_202609031559461408416978004206",
+        "type": "message",
+        "role": "assistant",
+        "content": [
+          {
+            "type": "tool_use",
+            "id": "call_da9fd44b1b274b099ec667f6",
+            "name": "mcp__fault-analysis__fault_analysis_finalize",
+            "input": {
+              "body": {
+                "run_dir": "runs/RUN-20260903-155841-37eae6",
+                "wait_for_completion": true
+              }
+            }
+          }
+        ],
+        "model": "glm-5.3",
+        "stop_reason": "tool_use",
+        "stop_sequence": null,
+        "usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        }
+      }
+    },
+    {
+      "name": "agentgov-682127f3-a608-44ae-991f-51c83f770bd7-08",
+      "match": {
+        "match_type": "contains",
+        "message": {
+          "role": "user",
+          "content": [
+            {
+              "type": "tool_result",
+              "tool_use_id": "call_da9fd44b1b274b099ec667f6",
+              "content": "{\"status\":\"finalized\",\"result_shape\":\"conversation_summary\",\"result_type\":\"故障分析结果摘要\",\"run_id\":\"RUN-20260903-155841-37eae6\",\"task_id\":\"TASK-20260903-155841-37eae6\",\"status_display\":\"受限完成\",\"storage_status_display\":\"已写入 9 类结构化记录\",\"quality_warnings\":[],\"user_response_markdown\":\"故障分析结果\\n\\n结论摘要：\\n| 项目 | 内容 |\\n| --- | --- |\\n| 排查对象 | 172.16.1.165 -> 172.16.2.100 |\\n| 运行状态 | 受限完成 |\\n| 根因状态 | 候选根因 |\\n| 报告分支 | 候选根因 |\\n| 置信度 | 中等（约 55%） |\\n| 运行编号 | RUN-20260903-155841-37eae6 |\\n| 记录状态 | 已写入 9 类结构化记录 |\\n\\n结论：已形成候选根因，但证据仍不足以确认最终根因；候选只用于后续验证顺序。\\n\\n结果分支说明：候选根因\\n最高候选置信度：中等（约 55%）。\\n- 目标资产不可达候选。目标资产详情显示探测状态为不可达、在线状态为离线。方向：目标资产不可达；候选置信度：中等（约 55%）。\\n\\n核心发现：\\n- 拓扑路径取证显示源到目标路径可达；当前证据不支持把源侧网关或路由缺失作为已验证根因。\\n- 用户描述为访问失败或不可达，仍需要验证实时链路质量、目标端口、服务进程、应用日志和主机侧访问控制，不能仅凭拓扑可达排除网络质量或主机策略问题。\\n\\n关键证据：\\n- 源资产身份取证：成功，资产 EDR-Server-虚拟机（172.16.1.165）；类型：vm；匹配资产 3 条；本次返回：3。\\n- 目标资产身份取证：成功，资产 版本服务器（172.16.2.100）；类型：server；匹配资产 1 条；本次返回：1。\\n- 主路径可达性取证：成功，可达。\\n- 另有 1 项关键证据见完整报告。\\n\\n取证执行清单：\\n| 取证项 | 状态 | 结果摘要 |\\n| --- | --- | --- |\\n| 源资产身份取证 | 成功 | 资产 EDR-Server-虚拟机（172.16.1.165）；类型：vm；匹配资产 3 条；本次返回：3 |\\n| 目标资产身份取证 | 成功 | 资产 版本服务器（172.16.2.100）；类型：server；匹配资产 1 条；本次返回：1 |\\n| 主路径可达性取证 | 成功 | 可达 |\\n另有 8 项取证明细见完整报告。\\n\\n证据缺口：\\n- 源 IP 匹配到多个同分资产候选，运行时已选择一个后台资产标识继续取证；仍需人工确认资产唯一性。\\n- 主路径查询显示可达，但资产维度补查存在路径数据缺口；该缺口只能作为补充证据，不能单独确认路由或网关故障。\\n- 缺少源到目标的实时 ping、TCP 握手、丢包、时延和重传证据。\\n- 另有 3 项证据缺口见完整报告。\\n\\n建议下一步：\\n- 用户自行排查：补查目标端口监听、TCP 握手和连接超时点。\\n- 用户自行排查：补查目标主机服务进程、应用日志、主机防火墙或本机访问控制。\\n- 用户自行排查：补查源到目标实时丢包、时延、重传和连接质量。\\n- 另有 3 项补查建议见完整报告。\\n\\n记录状态：已写入 9 类结构化记录。\\n\\n报告下载：[故障分析报告](http://172.16.112.232:58082/reports/RUN-20260903-155841-37eae6/fault-analysis-report.html)\\n\",\"downloadable_reports\":[{\"report_id\":\"FAULT-ANALYSIS-REPORT-RUN-20260903-155841-37eae6\",\"title\":\"故障分析报告\",\"format\":\"html\",\"content_type\":\"text/html; charset=utf-8\",\"file_name\":\"fault-analysis-report.html\",\"download_path\":\"/reports/RUN-20260903-155841-37eae6/fault-analysis-report.html\",\"size_bytes\":13031,\"sha256\":\"3785a7f39b002a68ce18aa65d1b39ea9809cafc2cded02057449b9a056bd0d75\",\"download_url\":\"http://172.16.112.232:58082/reports/RUN-20260903-155841-37eae6/fault-analysis-report.html\"}],\"storage_write_result\":{\"status\":\"finished\",\"record_count\":9,\"record_refs\":[{\"record_type\":\"AnalysisExecutionRecord\",\"record_id\":\"AnalysisExecutionRecord_TASK_20260903_155841_37eae6_RUN_20260903_155841_37eae6_69a95da19cf4ccf2\",\"status\":\"written\"},{\"record_type\":\"ToolCallSummary\",\"record_id\":\"ToolCallSummary_TASK_20260903_155841_37eae6_RUN_20260903_155841_37eae6_19f4dc49e944c75a\",\"status\":\"written\"},{\"record_type\":\"EvidencePackage\",\"record_id\":\"EvidencePackage_TASK_20260903_155841_37eae6_RUN_20260903_155841_37eae6_6ba92c51d327acfb\",\"status\":\"written\"},{\"record_type\":\"RuleHitRecordSet\",\"record_id\":\"RuleHitRecordSet_TASK_20260903_155841_37eae6_RUN_20260903_155841_37eae6_705d1db36b090177\",\"status\":\"written\"},{\"record_type\":\"CompetingRootCauseReview\",\"record_id\":\"CompetingRootCauseReview_TASK_20260903_155841_37eae6_RUN_20260903_155841_37eae6_29c4f3326fe98a6f\",\"status\":\"written\"},{\"record_type\":\"AnalysisResultRecord\",\"record_id\":\"AnalysisResultRecord_TASK_20260903_155841_37eae6_RUN_20260903_155841_37eae6_4060837bb4dc5039\",\"status\":\"written\"},{\"record_type\":\"RootCauseAnalysisReport\",\"record_id\":\"RootCauseAnalysisReport_TASK_20260903_155841_37eae6_RUN_20260903_155841_37eae6_193b13e3653b96d3\",\"status\":\"written\"},{\"record_type\":\"FaultAnalysisReportPayload\",\"record_id\":\"FaultAnalysisReportPayload_TASK_20260903_155841_37eae6_RUN_20260903_155841_37eae6_a4ca73a572ad91a7\",\"status\":\"written\"},{\"record_type\":\"FaultAnalysisResponse\",\"record_id\":\"FaultAnalysisResponse_TASK_20260903_155841_37eae6_RUN_20260903_155841_37eae6_f3ef43f0ef407fbe\",\"status\":\"written\"}]},\"finalize_mode\":\"fresh_run\",\"steps\":[{\"step\":\"standardize\",\"status\":\"generated\"},{\"step\":\"normalize\",\"status\":\"generated\"},{\"step\":\"materialize\",\"status\":\"materialized\"},{\"step\":\"check_storage\",\"status\":\"passed\"},{\"step\":\"cleanup\",\"status\":\"finished\"},{\"step\":\"validate\",\"status\":\"passed\"},{\"step\":\"user_response\",\"status\":\"generated\"}]}"
+            }
+          ]
+        },
+        "tool_names": [
+          "mcp__fault-analysis__fault_analysis_get_result"
+        ]
+      },
+      "response": {
+        "id": "msg_2026090315595903be2c38215d4461",
+        "type": "message",
+        "role": "assistant",
+        "content": [
+          {
+            "type": "tool_use",
+            "id": "call_bf9486f6a8b84178af2f1608",
+            "name": "mcp__fault-analysis__fault_analysis_get_result",
+            "input": {
+              "body": {
+                "markdown_only": true,
+                "run_dir": "runs/RUN-20260903-155841-37eae6"
+              }
+            }
+          }
+        ],
+        "model": "glm-5.3",
+        "stop_reason": "tool_use",
+        "stop_sequence": null,
+        "usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        }
+      }
+    },
+    {
+      "name": "agentgov-682127f3-a608-44ae-991f-51c83f770bd7-09-child-result-bridge",
+      "match": {
+        "match_type": "contains",
+        "message": {
+          "role": "user",
+          "content": [
+            {
+              "type": "tool_result",
+              "tool_use_id": "call_bf9486f6a8b84178af2f1608",
+              "content": ""
             }
           ]
         }
       },
       "response": {
-        "id": "msg_mockllm_kagent_haiku",
+        "id": "msg_202609031600199e1ef3f3d51041cc",
         "type": "message",
         "role": "assistant",
         "content": [
           {
             "type": "text",
-            "text": "Agents wake and run,\nKubernetes hums below,\nKagent finds its mind."
+            "text": "故障分析结果\n\n结论摘要：\n| 项目 | 内容 |\n| --- | --- |\n| 排查对象 | 172.16.1.165 -> 172.16.2.100 |\n| 运行状态 | 受限完成 |\n| 根因状态 | 候选根因 |\n| 报告分支 | 候选根因 |\n| 置信度 | 中等（约 55%） |\n| 运行编号 | RUN-20260903-155841-37eae6 |\n| 记录状态 | 已写入 9 类结构化记录 |\n\n结论：已形成候选根因，但证据仍不足以确认最终根因；候选只用于后续验证顺序。\n\n结果分支说明：候选根因\n最高候选置信度：中等（约 55%）。\n- 目标资产不可达候选。目标资产详情显示探测状态为不可达、在线状态为离线。方向：目标资产不可达；候选置信度：中等（约 55%）。\n\n核心发现：\n- 拓扑路径取证显示源到目标路径可达；当前证据不支持把源侧网关或路由缺失作为已验证根因。\n- 用户描述为访问失败或不可达，仍需要验证实时链路质量、目标端口、服务进程、应用日志和主机侧访问控制，不能仅凭拓扑可达排除网络质量或主机策略问题。\n\n关键证据：\n- 源资产身份取证：成功，资产 EDR-Server-虚拟机（172.16.1.165）；类型：vm；匹配资产 3 条；本次返回：3。\n- 目标资产身份取证：成功，资产 版本服务器（172.16.2.100）；类型：server；匹配资产 1 条；本次返回：1。\n- 主路径可达性取证：成功，可达。\n- 另有 1 项关键证据见完整报告。\n\n取证执行清单：\n| 取证项 | 状态 | 结果摘要 |\n| --- | --- | --- |\n| 源资产身份取证 | 成功 | 资产 EDR-Server-虚拟机（172.16.1.165）；类型：vm；匹配资产 3 条；本次返回：3 |\n| 目标资产身份取证 | 成功 | 资产 版本服务器（172.16.2.100）；类型：server；匹配资产 1 条；本次返回：1 |\n| 主路径可达性取证 | 成功 | 可达 |\n另有 8 项取证明细见完整报告。\n\n证据缺口：\n- 源 IP 匹配到多个同分资产候选，运行时已选择一个后台资产标识继续取证；仍需人工确认资产唯一性。\n- 主路径查询显示可达，但资产维度补查存在路径数据缺口；该缺口只能作为补充证据，不能单独确认路由或网关故障。\n- 缺少源到目标的实时 ping、TCP 握手、丢包、时延和重传证据。\n- 另有 3 项证据缺口见完整报告。\n\n建议下一步：\n- 用户自行排查：补查目标端口监听、TCP 握手和连接超时点。\n- 用户自行排查：补查目标主机服务进程、应用日志、主机防火墙或本机访问控制。\n- 用户自行排查：补查源到目标实时丢包、时延、重传和连接质量。\n- 另有 3 项补查建议见完整报告。\n\n记录状态：已写入 9 类结构化记录。\n\n报告下载：[故障分析报告](http://172.16.112.232:58082/reports/RUN-20260903-155841-37eae6/fault-analysis-report.html)"
           }
         ],
-        "model": "claude-sonnet-4-5",
+        "model": "glm-5.3",
         "stop_reason": "end_turn",
         "stop_sequence": null,
         "usage": {
-          "input_tokens": 8,
-          "output_tokens": 14
+          "input_tokens": 0,
+          "output_tokens": 0
+        }
+      }
+    },
+    {
+      "name": "agentgov-682127f3-a608-44ae-991f-51c83f770bd7-09",
+      "match": {
+        "match_type": "contains",
+        "message": {
+          "role": "user",
+          "content": [
+            {
+              "type": "tool_result",
+              "tool_use_id": "call_facc6876744a459e81450a12",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "故障分析结果\n\n结论摘要：\n| 项目 | 内容 |\n| --- | --- |\n| 排查对象 | 172.16.1.165 -> 172.16.2.100 |\n| 运行状态 | 受限完成 |\n| 根因状态 | 候选根因 |\n| 报告分支 | 候选根因 |\n| 置信度 | 中等（约 55%） |\n| 运行编号 | RUN-20260903-155841-37eae6 |\n| 记录状态 | 已写入 9 类结构化记录 |\n\n结论：已形成候选根因，但证据仍不足以确认最终根因；候选只用于后续验证顺序。\n\n结果分支说明：候选根因\n最高候选置信度：中等（约 55%）。\n- 目标资产不可达候选。目标资产详情显示探测状态为不可达、在线状态为离线。方向：目标资产不可达；候选置信度：中等（约 55%）。\n\n核心发现：\n- 拓扑路径取证显示源到目标路径可达；当前证据不支持把源侧网关或路由缺失作为已验证根因。\n- 用户描述为访问失败或不可达，仍需要验证实时链路质量、目标端口、服务进程、应用日志和主机侧访问控制，不能仅凭拓扑可达排除网络质量或主机策略问题。\n\n关键证据：\n- 源资产身份取证：成功，资产 EDR-Server-虚拟机（172.16.1.165）；类型：vm；匹配资产 3 条；本次返回：3。\n- 目标资产身份取证：成功，资产 版本服务器（172.16.2.100）；类型：server；匹配资产 1 条；本次返回：1。\n- 主路径可达性取证：成功，可达。\n- 另有 1 项关键证据见完整报告。\n\n取证执行清单：\n| 取证项 | 状态 | 结果摘要 |\n| --- | --- | --- |\n| 源资产身份取证 | 成功 | 资产 EDR-Server-虚拟机（172.16.1.165）；类型：vm；匹配资产 3 条；本次返回：3 |\n| 目标资产身份取证 | 成功 | 资产 版本服务器（172.16.2.100）；类型：server；匹配资产 1 条；本次返回：1 |\n| 主路径可达性取证 | 成功 | 可达 |\n另有 8 项取证明细见完整报告。\n\n证据缺口：\n- 源 IP 匹配到多个同分资产候选，运行时已选择一个后台资产标识继续取证；仍需人工确认资产唯一性。\n- 主路径查询显示可达，但资产维度补查存在路径数据缺口；该缺口只能作为补充证据，不能单独确认路由或网关故障。\n- 缺少源到目标的实时 ping、TCP 握手、丢包、时延和重传证据。\n- 另有 3 项证据缺口见完整报告。\n\n建议下一步：\n- 用户自行排查：补查目标端口监听、TCP 握手和连接超时点。\n- 用户自行排查：补查目标主机服务进程、应用日志、主机防火墙或本机访问控制。\n- 用户自行排查：补查源到目标实时丢包、时延、重传和连接质量。\n- 另有 3 项补查建议见完整报告。\n\n记录状态：已写入 9 类结构化记录。\n\n报告下载：[故障分析报告](http://172.16.112.232:58082/reports/RUN-20260903-155841-37eae6/fault-analysis-report.html)"
+                },
+                {
+                  "type": "text",
+                  "text": "agentId: ae3e7e91ba33b280d (use SendMessage with to: 'ae3e7e91ba33b280d', summary: '<5-10 word recap>' to continue this agent)\n<usage>subagent_tokens: 34949\ntool_uses: 16\nduration_ms: 110999</usage>"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "response": {
+        "id": "msg_202609031600199e1ef3f3d51041cc",
+        "type": "message",
+        "role": "assistant",
+        "content": [
+          {
+            "type": "text",
+            "text": "故障分析结果\n\n结论摘要：\n| 项目 | 内容 |\n| --- | --- |\n| 排查对象 | 172.16.1.165 -> 172.16.2.100 |\n| 运行状态 | 受限完成 |\n| 根因状态 | 候选根因 |\n| 报告分支 | 候选根因 |\n| 置信度 | 中等（约 55%） |\n| 运行编号 | RUN-20260903-155841-37eae6 |\n| 记录状态 | 已写入 9 类结构化记录 |\n\n结论：已形成候选根因，但证据仍不足以确认最终根因；候选只用于后续验证顺序。\n\n结果分支说明：候选根因\n最高候选置信度：中等（约 55%）。\n- 目标资产不可达候选。目标资产详情显示探测状态为不可达、在线状态为离线。方向：目标资产不可达；候选置信度：中等（约 55%）。\n\n核心发现：\n- 拓扑路径取证显示源到目标路径可达；当前证据不支持把源侧网关或路由缺失作为已验证根因。\n- 用户描述为访问失败或不可达，仍需要验证实时链路质量、目标端口、服务进程、应用日志和主机侧访问控制，不能仅凭拓扑可达排除网络质量或主机策略问题。\n\n关键证据：\n- 源资产身份取证：成功，资产 EDR-Server-虚拟机（172.16.1.165）；类型：vm；匹配资产 3 条；本次返回：3。\n- 目标资产身份取证：成功，资产 版本服务器（172.16.2.100）；类型：server；匹配资产 1 条；本次返回：1。\n- 主路径可达性取证：成功，可达。\n- 另有 1 项关键证据见完整报告。\n\n取证执行清单：\n| 取证项 | 状态 | 结果摘要 |\n| --- | --- | --- |\n| 源资产身份取证 | 成功 | 资产 EDR-Server-虚拟机（172.16.1.165）；类型：vm；匹配资产 3 条；本次返回：3 |\n| 目标资产身份取证 | 成功 | 资产 版本服务器（172.16.2.100）；类型：server；匹配资产 1 条；本次返回：1 |\n| 主路径可达性取证 | 成功 | 可达 |\n另有 8 项取证明细见完整报告。\n\n证据缺口：\n- 源 IP 匹配到多个同分资产候选，运行时已选择一个后台资产标识继续取证；仍需人工确认资产唯一性。\n- 主路径查询显示可达，但资产维度补查存在路径数据缺口；该缺口只能作为补充证据，不能单独确认路由或网关故障。\n- 缺少源到目标的实时 ping、TCP 握手、丢包、时延和重传证据。\n- 另有 3 项证据缺口见完整报告。\n\n建议下一步：\n- 用户自行排查：补查目标端口监听、TCP 握手和连接超时点。\n- 用户自行排查：补查目标主机服务进程、应用日志、主机防火墙或本机访问控制。\n- 用户自行排查：补查源到目标实时丢包、时延、重传和连接质量。\n- 另有 3 项补查建议见完整报告。\n\n记录状态：已写入 9 类结构化记录。\n\n报告下载：[故障分析报告](http://172.16.112.232:58082/reports/RUN-20260903-155841-37eae6/fault-analysis-report.html)"
+          }
+        ],
+        "model": "glm-5.3",
+        "stop_reason": "end_turn",
+        "stop_sequence": null,
+        "usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
         }
       }
     }
