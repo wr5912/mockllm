@@ -1,0 +1,3 @@
+/images/*.tar
+/images/.mockllm.tar.*
+/images/.mockllm.lock

@@ -1,0 +1,25 @@
+{
+	"id": "resp_123",
+	"object": "response",
+	"created_at": 1677652288.0,
+	"model": "gpt-4",
+	"output": [
+		{
+			"type": "message",
+			"role": "assistant",
+			"content": [
+				{
+					"type": "output_text",
+					"text": "Agents wake and run,\nKubernetes hums below,\nKagent finds its mind."
+				}
+			]
+		}
+	],
+	"error": {},
+	"incomplete_details": {},
+	"instructions": {},
+	"metadata": {},
+	"parallel_tool_calls": false,
+	"temperature": 1.0,
+	"tools": []
+}

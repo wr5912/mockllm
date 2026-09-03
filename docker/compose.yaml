@@ -1,0 +1,26 @@
+services:
+  mockllm:
+    image: mockllm:local
+    command: ["--config", "/etc/mockllm/config.json"]
+    ports:
+      - "0.0.0.0:50050:50050"
+    volumes:
+      - type: bind
+        source: ./config
+        target: /etc/mockllm
+        read_only: true
+        bind:
+          create_host_path: false
+    restart: unless-stopped
+    read_only: true
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    stop_grace_period: 10s
+    healthcheck:
+      test: ["CMD", "wget", "-q", "-T", "2", "--spider", "http://127.0.0.1:50050/health"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+      start_period: 5s

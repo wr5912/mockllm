@@ -1,0 +1,13 @@
+{
+	"id": "msg_123",
+	"type": "message",
+	"role": "assistant",
+	"content": [
+		{
+			"type": "text",
+			"text": "Hello! How can I assist you today?"
+		}
+	],
+	"model": "claude-3-5-sonnet-20240620",
+	"stop_reason": "end_turn"
+}

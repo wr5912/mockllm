@@ -1,0 +1,23 @@
+{
+	"id": "resp_func_123",
+	"object": "response",
+	"created_at": 1677652288.0,
+	"model": "gpt-4",
+	"output": [
+		{
+			"type": "function_call",
+			"id": "call_func_123",
+			"status": "completed",
+			"name": "calculate",
+			"arguments": "{\"expression\": \"2+2\"}",
+			"call_id": "call_func_123"
+		}
+	],
+	"error": {},
+	"incomplete_details": {},
+	"instructions": {},
+	"metadata": {},
+	"parallel_tool_calls": false,
+	"temperature": 1.0,
+	"tools": []
+}
