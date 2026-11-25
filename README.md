@@ -96,7 +96,7 @@ Validate a configuration without starting the HTTP server:
 ./mockllm --config ./path/to/mocks.json --check-config
 ```
 
-## Docker 部署（局域网 50050）
+## Docker 部署（局域网 50502）
 
 Docker 构建脚本位于 `images/`，部署文件和可提交的 mock 配置位于 `docker/`：
 
@@ -161,14 +161,14 @@ GOPROXY='https://goproxy.cn,direct' ./images/build.sh
 
 镜像归档不包含 `docker/config/config.json`；部署时始终挂载仓库内的当前配置。归档是构建主机平台对应的 Docker 镜像，需要部署到兼容的 CPU/OS 平台。
 
-Compose 将宿主机的 `0.0.0.0:50050` 映射到容器的 `50050`，同一局域网内的其他机器可通过 `http://<宿主机局域网 IP>:50050` 访问。
+Compose 将宿主机的 `0.0.0.0:50502` 映射到容器的 `50050`，同一局域网内的其他机器可通过 `http://<宿主机局域网 IP>:50502` 访问。
 
 ### curl 验证
 
 先将示例 IP 替换为 Docker 宿主机的真实局域网 IP：
 
 ```bash
-MOCKLLM_BASE_URL='http://192.168.1.20:50050'
+MOCKLLM_BASE_URL='http://192.168.1.20:50502'
 ```
 
 健康检查：
@@ -225,10 +225,10 @@ curl --fail-with-body --no-buffer --include \
 uv lock --script tests/claude_agent_sdk_messages.py
 ```
 
-默认访问 `http://127.0.0.1:50050`。要从局域网其他主机执行，可覆盖基础地址（不要附加 `/v1` 或 `/v1/messages`）：
+默认访问 `http://127.0.0.1:50502`。要从局域网其他主机执行，可覆盖基础地址（不要附加 `/v1` 或 `/v1/messages`）：
 
 ```bash
-MOCKLLM_BASE_URL='http://192.168.1.20:50050' \
+MOCKLLM_BASE_URL='http://192.168.1.20:50502' \
   ./tests/claude_agent_sdk_messages.py
 ```
 
@@ -253,10 +253,10 @@ docker compose \
 - `deploy.sh` 在归档缺失、manifest/digest 校验失败、加载失败或配置解析失败时会返回非零状态，不重建正式服务；健康状态超时则输出服务日志。
 - `start.sh` 如果配置解析失败或等待健康状态超时，会返回非零状态并输出诊断信息。
 - 如果无效的 `config.json` 导致容器重启或健康检查失败，执行 `./docker/stop.sh`，修复配置后再执行 `./docker/start.sh`。
-- 如果 `50050` 端口已被占用，先停止占用者，再执行 `./docker/deploy.sh`。
+- 如果 `50502` 端口已被占用，先停止占用者，再执行 `./docker/deploy.sh`。
 
 > [!WARNING]
-> MockLLM 不提供真实身份认证：OpenAI 端点不校验 `Authorization`，Anthropic 端点只检查 `x-api-key` 和 `anthropic-version` 是否存在。仅应将 `50050` 暴露给可信局域网，不要直接暴露到公网。`docker/config/config.json` 会纳入版本控制，请勿在其中保存真实 API key、token 或其他敏感数据。
+> MockLLM 不提供真实身份认证：OpenAI 端点不校验 `Authorization`，Anthropic 端点只检查 `x-api-key` 和 `anthropic-version` 是否存在。仅应将 `50502` 暴露给可信局域网，不要直接暴露到公网。`docker/config/config.json` 会纳入版本控制，请勿在其中保存真实 API key、token 或其他敏感数据。
 
 ## Configuration
 

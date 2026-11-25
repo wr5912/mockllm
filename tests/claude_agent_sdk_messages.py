@@ -35,7 +35,7 @@ EXPECTED_RESPONSE = (
     "Kubernetes hums below,\n"
     "Kagent finds its mind."
 )
-DEFAULT_BASE_URL = "http://127.0.0.1:50050"
+DEFAULT_BASE_URL = "http://127.0.0.1:50502"
 DEFAULT_MODEL = "claude-sonnet-4-5"
 REPO_ROOT = Path(__file__).resolve().parents[1]
 

@@ -16,7 +16,7 @@ readonly IMAGE_LOCK="${REPO_ROOT}/images/.mockllm.lock"
 readonly PROJECT_NAME="mockllm"
 readonly SERVICE_NAME="mockllm"
 readonly IMAGE_NAME="mockllm:local"
-readonly SERVICE_PORT="50050"
+readonly SERVICE_PORT="50502"
 
 declare -a COMPOSE_BIN=()
 declare -a COMPOSE_CMD=()

@@ -3,7 +3,7 @@ services:
     image: mockllm:local
     command: ["--config", "/etc/mockllm/config.json"]
     ports:
-      - "0.0.0.0:50050:50050"
+      - "0.0.0.0:50502:50050"
     volumes:
       - type: bind
         source: ./config
